@@ -2,7 +2,7 @@ import express from 'express'
 import userSchema from '../Model/userSchema.js'
 const router=express.Router()
 
-router.get('/user',async (req,res)=>{
+router.get('/gettotalusers',async (req,res)=>{
     try {
         const response= await userSchema.countDocuments()
          res.json(response)
