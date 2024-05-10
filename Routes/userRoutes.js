@@ -5,8 +5,8 @@ const router=express.Router()
 router.get('/gettotalusers',async (req,res)=>{
     try {
         const response= await userSchema.countDocuments()
-         res.json(response)
-         console.log(response);
+        console.log(response)
+         res.status(200).json({data:response})
     } catch (error) {
         res.send(error.message)
     }
