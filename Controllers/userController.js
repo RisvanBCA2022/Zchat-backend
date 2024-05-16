@@ -1,4 +1,4 @@
-import userSchema from "../Model/userSchema";
+import userSchema from "../Model/userSchema.js";
 
 export const sendFriendRequest = async (req, res, next) => {
 try {
