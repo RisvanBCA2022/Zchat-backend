@@ -4,14 +4,14 @@ import dotenv from 'dotenv'
 import userRoutes from './Routes/userRoutes.js'
 import authRoutes from './Routes/authRoutes.js'
 import cors from 'cors'
-import {ErrorHandler} from './Middleware/ErrorHandler.js';
-import userSchema from './Model/userSchema.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config()
 const app=express()
 app.use(cors())
 
 app.use(express.json())
+app.use(cookieParser());
 
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>console.log('mongodb connection successfull'))
