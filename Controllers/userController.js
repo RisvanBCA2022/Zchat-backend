@@ -41,9 +41,7 @@ export const acceptrequest = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const { requestId } = req.body;
-    console.log(requestId,userId);
     const user = await userSchema.findById(userId);
-    console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -69,3 +67,24 @@ export const acceptrequest = async (req, res, next) => {
     next(error);
   }
 };
+
+export const rejectrequest = async (req, res, next) => {
+  try {
+    const {requestId}=req.body;
+    const userId=req.user.id;
+    const user=await userSchema.findById(userId);
+    if(!user){
+      return res.status(404).json({message:"User not found"});
+    }
+
+    const requestIndex=user.friendRequests.findIndex((request)=>request.sender.toString()===requestId);
+    if(requestIndex===-1){
+      return res.status(404).json({message:"Request not found"});
+    }
+    user.friendRequests.splice(requestIndex,1);
+    await user.save();
+    res.status(200).json({message:"Friend request rejected"});
+  } catch (error) {
+    next(error);
+  }
+}
