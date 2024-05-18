@@ -18,6 +18,13 @@ const user = new mongoose.Schema(
       type: String,
       required: true,
     },
+    verificationToken: {
+      type: String,
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     profilePicture: {
       type: String,
       default:
