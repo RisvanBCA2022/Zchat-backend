@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv'
 import userRoutes from './Routes/userRoutes.js'
 import authRoutes from './Routes/authRoutes.js'
+import messageRoutes from './Routes/messagesRoute.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGO_URL)
 .catch((error)=>console.log(error.message))
 app.use('/api/user',userRoutes)
 app.use('/api/auth',authRoutes)
+app.use('/api/messages',messageRoutes)
 
 
 
