@@ -14,4 +14,5 @@ router.get('/notifications',jwtVerify,getNotification)
 router.post('/nofications/read',jwtVerify, markAsRead)
 
 
+
 export default router;  
