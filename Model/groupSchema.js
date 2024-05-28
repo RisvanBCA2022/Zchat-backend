@@ -4,6 +4,8 @@ const groupSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
+  admins: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
+  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'message' }],
 }, { timestamps: true });
 
 const Group = mongoose.model('Group', groupSchema);
