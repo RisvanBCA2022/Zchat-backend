@@ -21,6 +21,7 @@ const messageSchema = new mongoose.Schema(
       enum: ["text", "image", "video", "audio"],
       default: "text",
     },
+    group: { type: mongoose.Schema.Types.ObjectId, ref: 'group', required: true },
   },
   { timestamps: true }
 );
