@@ -1,5 +1,7 @@
 import groupSchema from "../Model/groupSchema.js";
 import userSchema from "../Model/userSchema.js";
+import { ErrorHandler } from "../Middleware/ErrorHandler.js";
+
 
 export const createGroup = async (req, res, next) => {
   try {
@@ -56,3 +58,29 @@ export const addMembers = async (req, res, next) => {
     next(error);
   }
 };
+
+
+export const removeMembers = async (req, res, next) => {
+    try {
+        const [groupId, memberId] = req.body
+        const userId = req.user.id;
+
+        const group = await groupSchema.findById(groupId);
+
+        if(!group){
+            return next(ErrorHandler(404,'Group not found'))
+        }
+        if (!group.admins.includes(userId)) {
+            return res.status(403).json({ message: 'Only admins can remove members' });
+          }
+      
+          if (group.members.includes(memberId)) {
+            group.members.pull(memberId);
+            await group.save();
+          }
+      
+          res.status(200).json({ message: 'Member removed', group });
+        } catch (error) {
+          next(error);
+        }
+}
